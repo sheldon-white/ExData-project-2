@@ -1,5 +1,4 @@
 library(ggplot2)
-library(grid)
 
 # Remote URL where the data lives.
 datasetURL = "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2FNEI_data.zip"
@@ -18,10 +17,6 @@ baltimoreEmissions = subset(NEI, fips == "24510")
 baltimoreEmissionsByYear = aggregate(list(TotalEmissions = baltimoreEmissions$Emissions), by = list(Year = baltimoreEmissions$year, Type = baltimoreEmissions$type), sum)
 
 png('plot3.png', width = 600, height = 500, bg = "gray90")
-annotationGrob = grobTree(textGrob("All emission types declined between\n1999 and 2008 except POINT type emissions.",
-                                   x = 0.3,  y = 0.9, hjust = 0,
-                            gp=gpar(col = "darkmagenta", fontsize = 12, fontface = "bold.italic")))
-
 ggplot(data = baltimoreEmissionsByYear, aes(x = Year, y = TotalEmissions, colour = Type)) +
     geom_line() +
     geom_point() +
@@ -33,7 +28,6 @@ ggplot(data = baltimoreEmissionsByYear, aes(x = Year, y = TotalEmissions, colour
           axis.title = element_text(colour = "darkblue"),
           axis.text = element_text(colour = "darkblue"),
           panel.background = element_rect(fill = 'wheat1'),
-          plot.background = element_rect( fill = 'gray90')) +
-    annotation_custom(annotationGrob)
+          plot.background = element_rect( fill = 'gray90'))
 
 graphics.off()

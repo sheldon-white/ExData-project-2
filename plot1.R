@@ -30,4 +30,5 @@ points(totalEmissionsByYear$Year, totalEmissionsByYear$TotalEmissions, pch = 20)
 axis(1, at = c(1999, 2002, 2005, 2008), font.axis = 3, col.axis = "darkblue");
 lines(totalEmissionsByYear$Year, totalEmissionsByYear$TotalEmissions, type = "l")
 text(2000, 2.0, expression('Total PM'[25]*' Emissions declined between 1999 and 2008.'), col = "darkblue", adj = c(0,0))
+
 graphics.off()

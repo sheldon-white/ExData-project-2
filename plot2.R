@@ -30,5 +30,5 @@ rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], col = "wheat1")
 points(totalEmissionsByYear$Year, totalEmissionsByYear$TotalEmissions, pch = 20)
 axis(1, at = c(1999, 2002, 2005, 2008), font.axis = 3, col.axis = "darkblue");
 lines(totalEmissionsByYear$Year, totalEmissionsByYear$TotalEmissions, type = "l")
-text(1999, 2.0, expression('Total PM'[25]*' Emissions declined in Baltimore City between 1999 and 2008.'), col = "darkblue", adj = c(0,0))
+
 graphics.off()

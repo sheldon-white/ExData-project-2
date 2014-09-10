@@ -1,5 +1,4 @@
 library(ggplot2)
-library(grid)
 library(plyr)
 
 # Remote URL where the data lives.
@@ -32,10 +31,6 @@ emissionsByYear = aggregate(list(TotalEmissions = baltimoreVehicleEmissions$Emis
                             sum)
 
 png('plot5.png', width = 600, height = 500, bg = "gray90")
-annotationGrob = grobTree(textGrob("Baltimore vehicle emissions declined\nbetween 1999 and 2008.",
-                                   x = 0.3,  y = 0.9, hjust = 0,
-                            gp=gpar(col = "darkmagenta", fontsize = 12, fontface = "bold.italic")))
-
 ggplot(data = emissionsByYear, aes(x = Year, y = TotalEmissions)) +
     geom_line() +
     geom_point() +
@@ -47,7 +42,6 @@ ggplot(data = emissionsByYear, aes(x = Year, y = TotalEmissions)) +
           axis.title = element_text(colour = "darkblue"),
           axis.text = element_text(colour = "darkblue"),
           panel.background = element_rect(fill = 'wheat1'),
-          plot.background = element_rect( fill = 'gray90')) +
-    annotation_custom(annotationGrob)
+          plot.background = element_rect( fill = 'gray90'))
 
 graphics.off()
