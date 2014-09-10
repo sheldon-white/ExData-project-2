@@ -19,35 +19,38 @@ SCC = readRDS(sccFile)
 # find the SCC values for motor vehicles
 vehiclesSCC = SCC[grepl("^Mobile.+Vehicles$", SCC$EI.Sector),]
 
-# and the emission entries for Baltimore
+# and the emission entries for the cities
 baltimoreEmissions = subset(NEI, fips == "24510")
-# find the intersection (vehicle emissions in Baltimore)
+baltimoreEmissions$City = "Baltimore"
+
+LAEmissions = subset(NEI, fips == "06037")
+LAEmissions$City = "Los Angeles"
+# find the intersection (vehicle emissions in the cities)
 baltimoreVehicleEmissions = join(baltimoreEmissions,
                                  vehiclesSCC,
                                  by = c("SCC"), type = "inner")
+LAVehicleEmissions = join(LAEmissions,
+                                 vehiclesSCC,
+                                 by = c("SCC"), type = "inner")
+vehicleEmissions = rbind(baltimoreVehicleEmissions, LAVehicleEmissions)
 # sum the aggregated values by year
-emissionsByYear = aggregate(list(TotalEmissions = baltimoreVehicleEmissions$Emissions),
-                            by = list(Year = baltimoreVehicleEmissions$year,
-                                      Type = baltimoreVehicleEmissions$type),
+emissionsByYear = aggregate(list(TotalEmissions = vehicleEmissions$Emissions),
+                            by = list(Year = vehicleEmissions$year,
+                                      City = vehicleEmissions$City),
                             sum)
 
-png('plot5.png', width = 600, height = 500, bg = "gray90")
-annotationGrob = grobTree(textGrob("Baltimore vehicle emissions declined\nbetween 1999 and 2008.",
-                                   x = 0.3,  y = 0.9, hjust = 0,
-                            gp=gpar(col = "darkmagenta", fontsize = 12, fontface = "bold.italic")))
-
-ggplot(data = emissionsByYear, aes(x = Year, y = TotalEmissions)) +
+png('plot6.png', width = 600, height = 500, bg = "gray90")
+ggplot(data = emissionsByYear, aes(x = Year, y = TotalEmissions, colour = City)) +
     geom_line() +
     geom_point() +
     xlab("Year") +
     ylab(expression('Total PM'[25]*' Emissions (tons)')) +
-    ggtitle(expression('Total Annual PM'[25]*' Vehicle Emissions in Baltimore, MD')) +
+    ggtitle(expression('Total Annual PM'[25]*' Vehicle Emissions in LA and Baltimore')) +
     scale_x_continuous(breaks=c(1999, 2002, 2005, 2008)) + 
     theme(plot.title = element_text(colour = "darkblue"),
           axis.title = element_text(colour = "darkblue"),
           axis.text = element_text(colour = "darkblue"),
           panel.background = element_rect(fill = 'wheat1'),
-          plot.background = element_rect( fill = 'gray90')) +
-    annotation_custom(annotationGrob)
+          plot.background = element_rect( fill = 'gray90'))
 
 graphics.off()

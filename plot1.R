@@ -11,15 +11,16 @@ if (!file.exists(emissionsFile) || !file.exists(sccFile) ) {
 }
 
 NEI = readRDS(emissionsFile)
-#SCC = readRDS(rdsFile)
 totalEmissionsByYear = aggregate(list(TotalEmissions = NEI$Emissions), by = list(Year = NEI$year), function(x) sum(x) / 1000)
 
 png('plot1.png', width = 600, height = 500, bg = "gray90")
 plot(totalEmissionsByYear$Year, totalEmissionsByYear$TotalEmissions,
      type = "n",
+     main = expression('Total Annual PM'[25]*' Emissions for United States'),
      xlab = "Year",
-     ylab = expression('Total PM'[25]*' Annual Emissions (kilotons)'),
+     ylab = expression('Total PM'[25]*' Emissions (kilotons)'),
      xaxt="n",,
+     col.main = "darkblue",
      col.axis = "darkblue",
      col.lab = "darkblue",
      font.axis = 3)

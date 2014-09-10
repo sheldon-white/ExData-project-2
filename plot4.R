@@ -33,7 +33,7 @@ ggplot(data = coalEmissionsByYear, aes(x = Year, y = TotalEmissions, colour = Ty
     geom_line() +
     geom_point() +
     xlab("Year") +
-    ylab("Total Emissions (kilotons)") +
+    ylab(expression('Total PM'[25]*' Emissions (kilotons)')) +
     ggtitle(expression('Total Annual PM'[25]*' Emissions for Coal Sources')) +
     scale_x_continuous(breaks=c(1999, 2002, 2005, 2008)) + 
     theme(plot.title = element_text(colour = "darkblue"),
