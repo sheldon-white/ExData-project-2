@@ -17,7 +17,7 @@ totalEmissionsByYear = aggregate(list(TotalEmissions = baltimoreEmissions$Emissi
 png('plot2.png', width = 600, height = 500, bg = "gray90")
 plot(totalEmissionsByYear$Year, totalEmissionsByYear$TotalEmissions,
      type = "n",
-     main = expression('Total Annual PM'[25]*' Emissions for Baltimore City, MD'),
+     main = expression('Total Annual PM'[25]*' Emissions for Baltimore, MD'),
      xlab = "Year",
      ylab = expression('Total PM'[25]*' Emissions (kilotons)'),
      xaxt="n",

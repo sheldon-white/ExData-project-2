@@ -36,7 +36,7 @@ ggplot(data = emissionsByYear, aes(x = Year, y = TotalEmissions)) +
     geom_point() +
     xlab("Year") +
     ylab(expression('Total PM'[25]*' Emissions (tons)')) +
-    ggtitle(expression('Total Annual PM'[25]*' Vehicle Emissions in Baltimore, MD')) +
+    ggtitle(expression('Total Annual PM'[25]*' Motor Vehicle Emissions in Baltimore, MD')) +
     scale_x_continuous(breaks=c(1999, 2002, 2005, 2008)) + 
     theme(plot.title = element_text(colour = "darkblue"),
           axis.title = element_text(colour = "darkblue"),

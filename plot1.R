@@ -16,7 +16,7 @@ totalEmissionsByYear = aggregate(list(TotalEmissions = NEI$Emissions), by = list
 png('plot1.png', width = 600, height = 500, bg = "gray90")
 plot(totalEmissionsByYear$Year, totalEmissionsByYear$TotalEmissions,
      type = "n",
-     main = expression('Total Annual PM'[25]*' Emissions for United States'),
+     main = expression('Total Annual PM'[25]*' Emissions for the United States'),
      xlab = "Year",
      ylab = expression('Total PM'[25]*' Emissions (kilotons)'),
      xaxt="n",
