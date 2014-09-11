@@ -26,6 +26,8 @@ plot(totalEmissionsByYear$Year, totalEmissionsByYear$TotalEmissions,
      font.axis = 3)
 
 rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], col = "wheat1")
+abline(h = (seq(4000, 8000, 1000)), col = "white")
+abline(v = (seq(1999, 2008, 1)), col = "white")
 points(totalEmissionsByYear$Year, totalEmissionsByYear$TotalEmissions, pch = 20)
 axis(1, at = c(1999, 2002, 2005, 2008), font.axis = 3, col.axis = "darkblue");
 lines(totalEmissionsByYear$Year, totalEmissionsByYear$TotalEmissions, type = "l")
