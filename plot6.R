@@ -1,5 +1,4 @@
 library(ggplot2)
-library(grid)
 library(plyr)
 
 # Remote URL where the data lives.
@@ -39,18 +38,22 @@ emissionsByYear = aggregate(list(TotalEmissions = vehicleEmissions$Emissions),
                                       City = vehicleEmissions$City),
                             sum)
 
+diffFunc = function(x) {
+    x$diff = x$TotalEmissions[x$Year == 2008] - x$TotalEmissions[x$Year == 1999]
+}
+
+emissionsChangeByCity = ddply(emissionsByYear, .(City), diffFunc)
+colnames(emissionsChangeByCity)[2] = "ChangeInEmissions"
+
 png('plot6.png', width = 600, height = 500, bg = "gray90")
-ggplot(data = emissionsByYear, aes(x = Year, y = TotalEmissions, colour = City)) +
-    geom_line() +
-    geom_point() +
-    xlab("Year") +
-    ylab(expression('Total PM'[25]*' Emissions (tons)')) +
-    ggtitle(expression('Total Annual PM'[25]*' Vehicle Emissions in LA and Baltimore')) +
-    scale_x_continuous(breaks=c(1999, 2002, 2005, 2008)) + 
-    theme(plot.title = element_text(colour = "darkblue"),
+ggplot(data = emissionsChangeByCity, aes(x=City, y=abs(ChangeInEmissions), fill = City)) +
+    geom_bar(stat = "identity") +
+    xlab("") +
+    ylab(expression('abs(total PM'[25]*'(2008) - total PM'[25]*'(1999)) (tons)')) +
+    theme(plot.title = element_text(colour = "darkblue", hjust = 0.5),
           axis.title = element_text(colour = "darkblue"),
           axis.text = element_text(colour = "darkblue"),
           panel.background = element_rect(fill = 'wheat1'),
-          plot.background = element_rect( fill = 'gray90'))
-
+          plot.background = element_rect( fill = 'gray90')) +
+    labs(title = "Magnitude of Changes in Vehicle Emissions in Baltimore and Los Angeles\nBetween 1999 and 2008")
 graphics.off()

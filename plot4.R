@@ -21,10 +21,10 @@ coalSCC = SCC[grepl("^.+Coal$", SCC$EI.Sector),]
 # find the coal emissions values
 coalNEI = join(NEI, coalSCC, by = c("SCC"), type = "inner")
 # aggregate and total by year
-coalEmissionsByYear = aggregate(list(TotalEmissions = coalNEI$Emissions), by = list(Year = coalNEI$year, Type = coalNEI$type), function(x) sum(x) / 1000)
+coalEmissionsByYear = aggregate(list(TotalEmissions = coalNEI$Emissions), by = list(Year = coalNEI$year), function(x) sum(x) / 1000)
 
 png('plot4.png', width = 600, height = 500, bg = "gray90")
-ggplot(data = coalEmissionsByYear, aes(x = Year, y = TotalEmissions, colour = Type)) +
+ggplot(data = coalEmissionsByYear, aes(x = Year, y = TotalEmissions)) +
     geom_line() +
     geom_point() +
     xlab("Year") +
@@ -36,5 +36,4 @@ ggplot(data = coalEmissionsByYear, aes(x = Year, y = TotalEmissions, colour = Ty
           axis.text = element_text(colour = "darkblue"),
           panel.background = element_rect(fill = 'wheat1'),
           plot.background = element_rect( fill = 'gray90'))
-
 graphics.off()

@@ -43,5 +43,4 @@ ggplot(data = emissionsByYear, aes(x = Year, y = TotalEmissions)) +
           axis.text = element_text(colour = "darkblue"),
           panel.background = element_rect(fill = 'wheat1'),
           plot.background = element_rect( fill = 'gray90'))
-
 graphics.off()
