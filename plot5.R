@@ -42,5 +42,6 @@ ggplot(data = emissionsByYear, aes(x = Year, y = TotalEmissions)) +
           axis.title = element_text(colour = "darkblue"),
           axis.text = element_text(colour = "darkblue"),
           panel.background = element_rect(fill = 'wheat1'),
-          plot.background = element_rect( fill = 'gray90'))
+          plot.background = element_rect( fill = 'gray90')) +
+    annotate("text", x = 2004, y = 325, size = 4, label = "(Note: 'Motor Vehicles' include SCC entries for Mobile On-Road Vehicles)")
 graphics.off()
