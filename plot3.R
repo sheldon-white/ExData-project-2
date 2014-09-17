@@ -28,10 +28,12 @@ ggplot(data = emissionsChangeByType, aes(x=Type, y=ChangeInEmissions, fill = Typ
     geom_bar(stat = "identity") +
     xlab("Emission Type") +
     ylab(expression('total PM'[25]*'(2008) - total PM'[25]*'(1999) (tons)')) +
+    scale_y_continuous(breaks = seq(-1000, 400, 100), limits = c(-800, 400)) +
     theme(plot.title = element_text(colour = "darkblue", hjust = 0.5),
           axis.title = element_text(colour = "darkblue"),
           axis.text = element_text(colour = "darkblue"),
           panel.background = element_rect(fill = 'wheat1'),
           plot.background = element_rect( fill = 'gray90')) +
+    geom_hline(aes(yintercept=0)) +
     labs(title = "Changes in Emissions in Baltimore, MD\nBetween 1999 and 2008")
 graphics.off()

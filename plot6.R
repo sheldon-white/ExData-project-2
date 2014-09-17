@@ -46,14 +46,16 @@ emissionsChangeByCity = ddply(emissionsByYear, .(City), diffFunc)
 colnames(emissionsChangeByCity)[2] = "ChangeInEmissions"
 
 png('plot6.png', width = 600, height = 500, bg = "gray90")
-ggplot(data = emissionsChangeByCity, aes(x=City, y=abs(ChangeInEmissions), fill = City)) +
+ggplot(data = emissionsChangeByCity, aes(x=City, y=ChangeInEmissions, fill = City)) +
     geom_bar(stat = "identity") +
     xlab("") +
-    ylab(expression('abs(total PM'[25]*'(2008) - total PM'[25]*'(1999)) (tons)')) +
+    ylab(expression('total PM'[25]*'(2008) - total PM'[25]*'(1999) (tons)')) +
+    scale_y_continuous(breaks = seq(-400, 400, 100), limits = c(-300, 300)) +
     theme(plot.title = element_text(colour = "darkblue", hjust = 0.5),
           axis.title = element_text(colour = "darkblue"),
           axis.text = element_text(colour = "darkblue"),
           panel.background = element_rect(fill = 'wheat1'),
           plot.background = element_rect( fill = 'gray90')) +
+    geom_hline(aes(yintercept=0)) +
     labs(title = "Magnitude of Changes in Vehicle Emissions in Baltimore and Los Angeles\nBetween 1999 and 2008")
 graphics.off()
